@@ -10,7 +10,7 @@ import java.util.List;
 import static java.util.Arrays.asList;
 import static junit.framework.Assert.*;
 
-public class EnumerableTests {
+public class TestEnumerable {
     @Test
     public void Distinct(){
         List<Integer> ids = Enumerable.init(asList(1, 1, 1, 2, 3, 4, 5, 6, 6, 7))

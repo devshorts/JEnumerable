@@ -16,3 +16,4 @@ obj/
 .idea/
 *.class
 maven-compiler-plugin/
+surefire-reports/
