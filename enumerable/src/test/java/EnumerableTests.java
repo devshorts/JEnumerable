@@ -1,5 +1,6 @@
 import com.devshorts.enumerable.Enumerable;
 import com.devshorts.enumerable.data.Action;
+import com.devshorts.enumerable.data.Box;
 import com.devshorts.enumerable.data.Yieldable;
 import org.junit.Test;
 
