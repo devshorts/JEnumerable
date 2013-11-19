@@ -1,7 +1,7 @@
 Java Enumerable
 ----
 
-This is an exersize to implement .NET style enumerable functions on deferred lazy collections using Java.
+This is an implementation of deferred lazy collections using Java.
 
 The goal, to provide
 
@@ -28,6 +28,8 @@ The goal, to provide
 - Yield/Yield break (and infinite sequence generation)
 
 The functionality already exists with java 8 streams, but this is fun to do :)
+
+Initial benchmarks show that JEnumerable is comporable in speed to JDK8 streams. JDK8 streams, however, does parallelized optimizations which this does not, so can be bettter performant sometimes.  
 
 Examples
 ---
