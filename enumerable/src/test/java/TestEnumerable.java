@@ -4,8 +4,7 @@ import com.devshorts.enumerable.data.Box;
 import com.devshorts.enumerable.data.Yieldable;
 import org.junit.Test;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static java.util.Arrays.asList;
 import static junit.framework.Assert.*;
@@ -191,14 +190,13 @@ public class TestEnumerable {
     public void Yield(){
         Box<Integer> i = new Box<>(0);
         Enumerable<Integer> ints = Enumerable.generate(() -> {
-            i.elem++;
             if(i.elem < 10){
-                return Yieldable.yield(i.elem);
+                return Yieldable.yield(i.elem, () -> i.elem++);
             }
             return Yieldable.yieldBreak();
         });
 
-        assertEquals(ints.toList(), asList(1,2,3,4,5,6,7,8,9));
+        assertEquals(ints.toList(), asList(0,1,2,3,4,5,6,7,8,9));
     }
 
     @Test
@@ -225,7 +223,7 @@ public class TestEnumerable {
 
     @Test
     public void ToString(){
-        assertEquals(asList("a","b","c"),
+        assertEquals(asList('a', 'b', 'c'),
                     Enumerable.init("abc").toList());
     }
 }

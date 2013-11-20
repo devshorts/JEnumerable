@@ -31,21 +31,21 @@ public class Enumerable<TSource> implements Iterable<TSource> {
     private Function<Iterable<TSource>, Iterator<TSource>> iteratorGenerator;
 
     public static <TSource> Enumerable<TSource> init(Iterable<TSource> source){
-        return new Enumerable<>(ignore -> new EnumerableIterator<>(source));
+        return new Enumerable<>(_ig -> new EnumerableIterator<>(source));
     }
 
-    public static Enumerable<String> init(String source){
+    public static Enumerable<Character> init(String source){
         Box<Integer> b = new Box<>(0);
         return generate(() ->{
             if(b.elem < source.length()){
-                return Yieldable.yield(String.valueOf(source.charAt(b.elem)), () -> b.elem++);
+                return Yieldable.yield(source.charAt(b.elem), () -> b.elem++);
             }
             return Yieldable.yieldBreak();
         });
     }
 
     public static <TSource> Enumerable<TSource> generate(Supplier<Yieldable<TSource>> generator){
-        return new Enumerable<>(ignore -> new EnumerableIterator<>(new YieldedEnumeration<>(generator)));
+        return new Enumerable<>(_ig -> new EnumerableIterator<>(new YieldedEnumeration<>(generator)));
     }
 
     public static <TSource> Enumerable<TSource> generate(Supplier<Yieldable<TSource>> generator,
