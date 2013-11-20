@@ -226,4 +226,12 @@ public class TestEnumerable {
         assertEquals(asList('a', 'b', 'c'),
                     Enumerable.init("abc").toList());
     }
+
+    @Test
+    public void Windowed(){
+        assertEquals(asList(asList(1,2), asList(2,3), asList(3,4)),
+                Enumerable.init(asList(1,2,3,4))
+                  .windowed(2)
+                  .toList());
+    }
 }

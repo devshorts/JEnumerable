@@ -50,7 +50,7 @@ public class Enumerable<TSource> implements Iterable<TSource> {
 
     public static <TSource> Enumerable<TSource> generate(Supplier<Yieldable<TSource>> generator,
                                                          Action onNewIterator){
-        return new Enumerable<>(x -> {
+        return new Enumerable<>(_ig -> {
             onNewIterator.exec();
 
             return new EnumerableIterator<>(new YieldedEnumeration<>(generator));
@@ -58,7 +58,7 @@ public class Enumerable<TSource> implements Iterable<TSource> {
     }
 
     private <TResult> Enumerable<TResult> enumerableWithIterator(Function<Iterable<TSource>, Iterator<TResult>> generator){
-        return new Enumerable<>(ignore -> generator.apply(this));
+        return new Enumerable<>(_ig -> generator.apply(this));
     }
 
     protected Enumerable(Function<Iterable<TSource>, Iterator<TSource>> iteratorGenerator) {
@@ -93,6 +93,10 @@ public class Enumerable<TSource> implements Iterable<TSource> {
 
     public Enumerable<TSource> skipWhile(Predicate<TSource> predicate){
         return enumerableWithIterator(source -> new SkipWhileIterator<>(source, predicate));
+    }
+
+    public Enumerable<List<TSource>> windowed(int n){
+        return enumerableWithIterator(source -> new WindowedIterator<>(source, n));
     }
 
     public Enumerable<TSource> iter(Consumer<TSource> action){
