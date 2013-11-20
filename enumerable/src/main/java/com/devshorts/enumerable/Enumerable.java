@@ -1,6 +1,7 @@
 package com.devshorts.enumerable;
 
 import com.devshorts.enumerable.data.Action;
+import com.devshorts.enumerable.data.Box;
 import com.devshorts.enumerable.data.Yieldable;
 import com.devshorts.enumerable.iterators.*;
 
@@ -31,6 +32,16 @@ public class Enumerable<TSource> implements Iterable<TSource> {
 
     public static <TSource> Enumerable<TSource> init(Iterable<TSource> source){
         return new Enumerable<>(ignore -> new EnumerableIterator<>(source));
+    }
+
+    public static Enumerable<String> init(String source){
+        Box<Integer> b = new Box<>(0);
+        return generate(() ->{
+            if(b.elem < source.length()){
+                return Yieldable.yield(String.valueOf(source.charAt(b.elem)), () -> b.elem++);
+            }
+            return Yieldable.yieldBreak();
+        });
     }
 
     public static <TSource> Enumerable<TSource> generate(Supplier<Yieldable<TSource>> generator){

@@ -222,4 +222,10 @@ public class TestEnumerable {
                         .orderBy(i -> i)
                         .except(asList(1,1,1,2, 6, 7, 8, 9)).toList());
     }
+
+    @Test
+    public void ToString(){
+        assertEquals(asList("a","b","c"),
+                    Enumerable.init("abc").toList());
+    }
 }
