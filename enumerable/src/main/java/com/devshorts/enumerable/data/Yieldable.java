@@ -41,6 +41,10 @@ public class Yieldable<T> {
         return elements;
     }
 
+    private YieldType yieldType;
+    private Iterable<T> elements;
+    private Iterator<T> currentIt;
+
     private Yieldable(YieldType type, Iterable<T> elements, Action sideEffect){
         yieldType = type;
 
@@ -48,11 +52,6 @@ public class Yieldable<T> {
 
         this.sideEffect = sideEffect;
     }
-
-    private YieldType yieldType;
-    private Iterable<T> elements;
-    private Iterator<T> currentIt;
-    private Boolean execSideEffect = false;
 
     public T value(){
 

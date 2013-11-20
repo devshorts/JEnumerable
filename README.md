@@ -1,9 +1,9 @@
 Java Enumerable
 ----
 
-This is an implementation of deferred lazy collections using Java.
+This is an implementation of deferred lazy collections using Java. Inspired by F# and C#. The goal is to make working with iterable items easier. Most list processing is a series of transformations and iterations. By leveraging simple and composable functions you can reduce edge cases, off by 1 errors, extraneous processing and unintentional performance bottlenecks. Also, you can easily create (and end) infinite lazy streams.
 
-The goal, to provide
+Currently JEnumerable provides
 
 - Map
 - Filter
@@ -26,13 +26,14 @@ The goal, to provide
 - Any
 - All
 - Windowed
-- Tails
+- Tails   
+- Pairwise
 
 And infinite sequence generation with
 
 - Yield
 - Yield break
-- YieldBang
+- Yield bang
 
 Some functionality exists in Java 8 streams, but more is here. Initial benchmarks show that JEnumerable is comporable in speed to JDK8 streams. JDK8 streams, however, does parallelized optimizations which this does not, so can be bettter performant sometimes.  
 
