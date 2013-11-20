@@ -234,4 +234,12 @@ public class TestEnumerable {
                   .windowed(2)
                   .toList());
     }
+
+    @Test
+    public void Tails(){
+        assertEquals(asList(asList(1,2, 3, 4), asList(2, 3, 4), asList(3, 4), asList(4)),
+                Enumerable.init(asList(1,2,3,4))
+                        .tails()
+                        .toList());
+    }
 }

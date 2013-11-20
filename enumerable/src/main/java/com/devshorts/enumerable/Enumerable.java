@@ -99,6 +99,10 @@ public class Enumerable<TSource> implements Iterable<TSource> {
         return enumerableWithIterator(source -> new WindowedIterator<>(source, n));
     }
 
+    public Enumerable<List<TSource>> tails(){
+        return enumerableWithIterator(TailsIterator::new);
+    }
+
     public Enumerable<TSource> iter(Consumer<TSource> action){
         return enumerableWithIterator(source ->
                 new IndexIterator<>(source, idxPair -> action.accept(idxPair.value)));

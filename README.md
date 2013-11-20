@@ -26,6 +26,7 @@ The goal, to provide
 - Any
 - All
 - Windowed
+- Tails
 - Yield/Yield break (and infinite sequence generation)
 
 Some functionality exists in Java 8 streams, but more is here. Initial benchmarks show that JEnumerable is comporable in speed to JDK8 streams. JDK8 streams, however, does parallelized optimizations which this does not, so can be bettter performant sometimes.  
