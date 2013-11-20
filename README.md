@@ -16,6 +16,8 @@ Currently JEnumerable provides
 - Iter
 - Iteri
 - DistinctUnion
+- Distinct
+- DistinctBy
 - Intersect
 - Except
 - First
