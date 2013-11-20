@@ -32,4 +32,4 @@ The functionality already exists with java 8 streams, but this is fun to do :)
 
 Initial benchmarks show that JEnumerable is comporable in speed to JDK8 streams. JDK8 streams, however, does parallelized optimizations which this does not, so can be bettter performant sometimes.  
 
-Check here for [examples](blob/master/enumerable/src/test/java/TestEnumerable.java).
+Check here for [examples](enumerable/src/test/java/TestEnumerable.java).
