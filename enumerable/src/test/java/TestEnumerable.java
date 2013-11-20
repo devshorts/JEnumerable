@@ -215,7 +215,7 @@ public class TestEnumerable {
         Box<Integer> j = new Box(0);
 
         Enumerable<Integer> hundred = Enumerable.generate(() -> {
-            if(j.elem < 5){
+            if (j.elem < 5) {
                 return Yieldable.bang(tenTime, () -> {
                     i.elem = 0;
                     j.elem++;
@@ -255,6 +255,28 @@ public class TestEnumerable {
     public void ToString(){
         assertEquals(asList('a', 'b', 'c'),
                     Enumerable.init("abc").toList());
+    }
+
+    @Test
+    public void Iter(){
+        List<Integer> l = new ArrayList<>();
+        Enumerable.init(asList(1,2,30)).iter(l::add).toList();
+
+        assertEquals(asList(1,2,30), l);
+    }
+
+    @Test
+    public void Iteri(){
+        List<Integer> l = new ArrayList<>();
+        List<Integer> idx = new ArrayList<>();
+
+        Enumerable.init(asList(1,2,30)).iteri((i, e) -> {
+            idx.add(i);
+            l.add(e);
+        }).toList();
+
+        assertEquals(asList(1,2,30), l);
+        assertEquals(asList(0,1,2), idx);
     }
 
     @Test
@@ -312,6 +334,14 @@ public class TestEnumerable {
     public void GroupNeighbors2(){
         assertEquals(asList(asList(5), asList(1,1,1)),
                 Enumerable.init(asList(5,1,1,1))
+                        .groupNeighbors()
+                        .toList());
+    }
+
+    @Test
+    public void GroupNeighbors3(){
+        assertEquals(asList(),
+                Enumerable.init(asList())
                         .groupNeighbors()
                         .toList());
     }
