@@ -201,6 +201,35 @@ public class TestEnumerable {
     }
 
     @Test
+    public void YieldBang(){
+        Box<Integer> i = new Box<>(0);
+        Enumerable<Integer> tenTime = Enumerable.generate(() -> {
+            if(i.elem < 5){
+                return Yieldable.yield(i.elem, () -> {
+                    i.elem++;
+                });
+            }
+            return Yieldable.yieldBreak();
+        });
+
+        Box<Integer> j = new Box(0);
+
+        Enumerable<Integer> hundred = Enumerable.generate(() -> {
+            if(j.elem < 5){
+                return Yieldable.bang(tenTime, () -> {
+                    i.elem = 0;
+                    j.elem++;
+                });
+            }
+            return Yieldable.yieldBreak();
+        });
+
+        List<Integer> x = hundred.toList();
+
+        assertEquals(x.size(), 25);
+    }
+
+    @Test
     public void DistinctUnion(){
         assertEquals(asList(1,2,3,4,5,6,7,8,9),
                 Enumerable.init(asList(5, 4, 3, 2, 1))

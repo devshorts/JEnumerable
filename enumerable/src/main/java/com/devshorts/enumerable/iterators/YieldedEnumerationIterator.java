@@ -16,9 +16,11 @@ public class YieldedEnumerationIterator<TSource> implements Iterator<TSource> {
 
     @Override
     public boolean hasNext() {
-        nextElem = generator.get();
+        if(nextElem == null || nextElem.shouldGen()){
+            nextElem = generator.get();
+        }
 
-        return nextElem.isYield();
+        return nextElem.isYield() && nextElem.hasNext();
     }
 
     @Override
