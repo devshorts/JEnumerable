@@ -237,8 +237,19 @@ public class TestEnumerable {
     }
 
     @Test
+    public void WindowedInfinite(){
+        Box<Integer> i = new Box(1);
+        List<List<Integer>> is = Enumerable.generate(() -> Yieldable.yield(i.elem, () -> i.elem++))
+                .take(4)
+                .windowed(2)
+                .toList();
+
+        assertEquals(asList(asList(1, 2), asList(2, 3), asList(3, 4)), is);
+    }
+
+    @Test
      public void Tails(){
-        assertEquals(asList(asList(1,2, 3, 4), asList(2, 3, 4), asList(3, 4), asList(4)),
+        assertEquals(asList(asList(1, 2, 3, 4), asList(2, 3, 4), asList(3, 4), asList(4)),
                 Enumerable.init(asList(1,2,3,4))
                         .tails()
                         .toList());
