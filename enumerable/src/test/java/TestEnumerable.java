@@ -280,6 +280,41 @@ public class TestEnumerable {
     }
 
     @Test
+    public void DistinctBy(){
+        class T {
+            public T(Integer x){
+                B = x;
+            }
+            public Integer B;
+
+            @Override
+            public boolean equals(Object o){
+                if(!(o instanceof T)) return false;
+
+                return ((T)o).B.equals(B);
+            }
+        }
+
+        assertEquals(
+                asList(new T(0), new T(1), new T(4)),
+                Enumerable.init(asList(new T(0), new T(1), new T(1), new T(4)))
+                          .distinctBy(i -> i.B)
+                          .toList());
+    }
+
+
+    @Test
+    public void FirstOrDefault(){
+        assertEquals(null, Enumerable.init(asList()).first());
+    }
+
+    @Test
+    public void LastOrDefault(){
+        assertEquals(null, Enumerable.init(asList()).last());
+    }
+
+
+    @Test
     public void Windowed(){
         assertEquals(asList(asList(1, 2), asList(2, 3), asList(3, 4)),
                 Enumerable.init(asList(1, 2, 3, 4))

@@ -156,24 +156,12 @@ public class Enumerable<TSource> implements Iterable<TSource> {
         return unsafeIterEval(new NthIterator<>(this, 1));
     }
 
-    public TSource firstOrDefault(){
-        return orDefault(new NthIterator<>(this, 1));
-    }
-
     public TSource nth(int n){
         return unsafeIterEval(new NthIterator<>(this, n));
     }
 
-    public TSource nthOrDefault(int n){
-        return orDefault(new NthIterator<>(this, n));
-    }
-
     public TSource last(){
         return unsafeIterEval(new LastIterator<>(this));
-    }
-
-    public TSource lastOrDefault(){
-        return orDefault(new LastIterator<>(this));
     }
 
     public <TAcc> TAcc fold(BiFunction<TAcc, TSource, TAcc> accumulator, TAcc seed){
@@ -252,14 +240,6 @@ public class Enumerable<TSource> implements Iterable<TSource> {
         iterator.hasNext();
 
         return iterator.next();
-    }
-
-    private TSource orDefault(Iterator<TSource> iterator){
-        if(iterator.hasNext()){
-            return iterator.next();
-        }
-
-        return null;
     }
 }
 
