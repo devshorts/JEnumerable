@@ -1,6 +1,7 @@
 import com.devshorts.enumerable.Enumerable;
 import com.devshorts.enumerable.data.Action;
 import com.devshorts.enumerable.data.Box;
+import com.devshorts.enumerable.data.Tuple;
 import com.devshorts.enumerable.data.Yieldable;
 import org.junit.Test;
 
@@ -229,17 +230,33 @@ public class TestEnumerable {
 
     @Test
     public void Windowed(){
-        assertEquals(asList(asList(1,2), asList(2,3), asList(3,4)),
-                Enumerable.init(asList(1,2,3,4))
-                  .windowed(2)
-                  .toList());
+        assertEquals(asList(asList(1, 2), asList(2, 3), asList(3, 4)),
+                Enumerable.init(asList(1, 2, 3, 4))
+                        .windowed(2)
+                        .toList());
     }
 
     @Test
-    public void Tails(){
+     public void Tails(){
         assertEquals(asList(asList(1,2, 3, 4), asList(2, 3, 4), asList(3, 4), asList(4)),
                 Enumerable.init(asList(1,2,3,4))
                         .tails()
+                        .toList());
+    }
+
+    @Test
+    public void Pairwise(){
+        assertEquals(asList(new Tuple<>(1,2), new Tuple<>(2, 3), new Tuple<>(3, 4)),
+                Enumerable.init(asList(1,2,3,4))
+                        .pairwise()
+                        .toList());
+    }
+
+    @Test
+    public void PairwiseEmpty(){
+        assertEquals(asList(),
+                Enumerable.init(asList(1))
+                        .pairwise()
                         .toList());
     }
 }

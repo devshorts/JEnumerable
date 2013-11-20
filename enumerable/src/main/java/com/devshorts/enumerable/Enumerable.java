@@ -2,6 +2,7 @@ package com.devshorts.enumerable;
 
 import com.devshorts.enumerable.data.Action;
 import com.devshorts.enumerable.data.Box;
+import com.devshorts.enumerable.data.Tuple;
 import com.devshorts.enumerable.data.Yieldable;
 import com.devshorts.enumerable.iterators.*;
 
@@ -101,6 +102,10 @@ public class Enumerable<TSource> implements Iterable<TSource> {
 
     public Enumerable<List<TSource>> tails(){
         return enumerableWithIterator(TailsIterator::new);
+    }
+
+    public Enumerable<Tuple<TSource, TSource>> pairwise(){
+        return enumerableWithIterator(PairwiseIterator::new);
     }
 
     public Enumerable<TSource> iter(Consumer<TSource> action){
