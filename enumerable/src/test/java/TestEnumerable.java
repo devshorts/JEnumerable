@@ -359,9 +359,24 @@ public class TestEnumerable {
 
     @Test
     public void GroupNeighbors(){
-        assertEquals(asList(asList(1,1,1), asList(2), asList(3,3), asList(4), asList(5), asList(6)),
-                        Enumerable.init(asList(1,1,1,2,3,3,4,5,6))
+        assertEquals(asList(asList(1,1,1),
+                asList(2),
+                asList(3,3),
+                asList(4),
+                asList(1,1),
+                asList(5),
+                asList(6)),
+                        Enumerable.init(asList(1,1,1,2,3,3,4,1,1,5,6))
                                   .groupNeighbors()
+                                  .toList());
+    }
+
+    @Test
+    public void RunTimeEncodeExample(){
+        assertEquals(asList("2a", "2b", "1c", "1d", "1e", "2f", "1g"),
+                        Enumerable.init("aabbcdeffg")
+                                  .groupNeighbors()
+                                  .map(l -> l.size() + l.get(0).toString())
                                   .toList());
     }
 
