@@ -1,7 +1,7 @@
 Java Enumerable
 ----
 
-This is an implementation of deferred lazy collections using Java. Inspired by F# and C#. The goal is to make working with iterable items easier. Most list processing is a series of transformations and iterations. By leveraging simple and composable functions you can reduce edge cases, off by 1 errors, extraneous processing and unintentional performance bottlenecks. Also, you can easily create (and end) infinite lazy streams.
+This is an implementation of deferred lazy collections using Java. Inspired by F#, C#, and Haskell. The goal is to make working with iterable items easier. Most list processing is a series of transformations and iterations. By leveraging simple and composable functions you can reduce edge cases, off by 1 errors, extraneous processing and unintentional performance bottlenecks. Also, you can easily create (and end) infinite lazy streams.
 
 Currently JEnumerable provides
 
@@ -28,6 +28,7 @@ Currently JEnumerable provides
 - Windowed
 - Tails   
 - Pairwise
+- GroupNeighbors
 
 And infinite sequence generation with
 

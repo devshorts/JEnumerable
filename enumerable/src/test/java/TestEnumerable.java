@@ -299,4 +299,20 @@ public class TestEnumerable {
                         .pairwise()
                         .toList());
     }
+
+    @Test
+    public void GroupNeighbors(){
+        assertEquals(asList(asList(1,1,1), asList(2), asList(3,3), asList(4), asList(5), asList(6)),
+                        Enumerable.init(asList(1,1,1,2,3,3,4,5,6))
+                                  .groupNeighbors()
+                                  .toList());
+    }
+
+    @Test
+    public void GroupNeighbors2(){
+        assertEquals(asList(asList(5), asList(1,1,1)),
+                Enumerable.init(asList(5,1,1,1))
+                        .groupNeighbors()
+                        .toList());
+    }
 }

@@ -104,6 +104,10 @@ public class Enumerable<TSource> implements Iterable<TSource> {
         return enumerableWithIterator(TailsIterator::new);
     }
 
+    public Enumerable<List<TSource>> groupNeighbors(){
+        return enumerableWithIterator(GroupNeighborsIterator::new);
+    }
+
     public Enumerable<Tuple<TSource, TSource>> pairwise(){
         return enumerableWithIterator(PairwiseIterator::new);
     }
