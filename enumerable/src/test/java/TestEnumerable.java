@@ -446,4 +446,18 @@ public class TestEnumerable {
                         .intercalate(asList("a", "b", "c"))
                         .toGroupedDictionary());
     }
+
+    @Test
+    public void Range(){
+        assertEquals(asList(0,1,2,3,4,5,6,7,8,9,10),
+                        Enumerable.range(0, 10).toList());
+
+    }
+
+    @Test
+    public void Range2(){
+        assertEquals(asList(0,5, 10),
+                Enumerable.range(0, 10, 5).toList());
+
+    }
 }

@@ -39,7 +39,7 @@ public class Enumerable<TSource> implements Iterable<TSource> {
 
     public static Enumerable<Character> init(String source){
         Box<Integer> b = new Box<>(0);
-        return generate(() ->{
+        return generate(() -> {
             if(b.elem < source.length()){
                 return Yieldable.yield(source.charAt(b.elem), () -> b.elem++);
             }
@@ -66,6 +66,20 @@ public class Enumerable<TSource> implements Iterable<TSource> {
 
     protected Enumerable(Function<Iterable<TSource>, Iterator<TSource>> iteratorGenerator) {
         this.iteratorGenerator = iteratorGenerator;
+    }
+
+    public static Enumerable<Integer> range(Integer start, Integer end, Integer interval){
+        Box<Integer> b = new Box(start);
+        return Enumerable.generate(() -> {
+            if(b.elem <= end){
+                return Yieldable.yield(b.elem, () -> b.elem += interval);
+            }
+            return Yieldable.yieldBreak();
+        });
+    }
+
+    public static Enumerable<Integer> range(Integer start, Integer end){
+        return range(start, end, 1);
     }
 
     public <TResult> Enumerable<TResult> map(Function<TSource, TResult> mapFunc){

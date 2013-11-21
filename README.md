@@ -35,6 +35,7 @@ Currently JEnumerable provides
 - Intercalate
 - ToDictionary
 - ToGroupedDictionary
+- Range
 
 
 And infinite sequence generation with
