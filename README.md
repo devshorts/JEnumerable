@@ -30,7 +30,12 @@ Currently JEnumerable provides
 - Windowed
 - Tails   
 - Pairwise
-- GroupNeighbors
+- GroupRuns
+- Intersperse
+- Intercalate
+- ToDictionary
+- ToGroupedDictionary
+
 
 And infinite sequence generation with
 

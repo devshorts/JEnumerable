@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GroupNeighborsIterator<TSource> extends MapIterator<TSource, List<TSource>> {
+public class GroupRunsIterator<TSource> extends MapIterator<TSource, List<TSource>> {
 
     private TSource current;
     private TSource last;
@@ -12,7 +12,7 @@ public class GroupNeighborsIterator<TSource> extends MapIterator<TSource, List<T
     ;
     private Boolean reset = false;
 
-    public GroupNeighborsIterator(Iterable input) {
+    public GroupRunsIterator(Iterable input) {
         super(input);
     }
 

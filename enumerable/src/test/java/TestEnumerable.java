@@ -367,7 +367,7 @@ public class TestEnumerable {
                 asList(5),
                 asList(6)),
                         Enumerable.init(asList(1,1,1,2,3,3,4,1,1,5,6))
-                                  .groupNeighbors()
+                                  .groupRuns()
                                   .toList());
     }
 
@@ -375,7 +375,7 @@ public class TestEnumerable {
     public void RunTimeEncodeExample(){
         assertEquals(asList("2a", "2b", "1c", "1d", "1e", "2f", "1g"),
                         Enumerable.init("aabbcdeffg")
-                                  .groupNeighbors()
+                                  .groupRuns()
                                   .map(l -> l.size() + l.get(0).toString())
                                   .toList());
     }
@@ -384,7 +384,7 @@ public class TestEnumerable {
     public void GroupNeighbors2(){
         assertEquals(asList(asList(5), asList(1,1,1)),
                 Enumerable.init(asList(5,1,1,1))
-                        .groupNeighbors()
+                        .groupRuns()
                         .toList());
     }
 
@@ -392,7 +392,58 @@ public class TestEnumerable {
     public void GroupNeighbors3(){
         assertEquals(asList(),
                 Enumerable.init(asList())
-                        .groupNeighbors()
+                        .groupRuns()
                         .toList());
+    }
+
+    @Test
+    public void Intersperse(){
+        assertEquals(asList("1",",","2",",","3"),
+                Enumerable.init("123")
+                        .map(i -> Character.toString(i))
+                        .intersperse(",").toList());
+    }
+
+    @Test
+    public void Intercalate(){
+        assertEquals(asList("1","a","b","c","2","a","b","c","3"),
+                Enumerable.init("123")
+                        .map(i -> Character.toString(i))
+                        .intercalate(asList("a", "b", "c")).toList());
+    }
+
+    @Test
+    public void ToDictionary(){
+        HashMap<String, String> s = new HashMap<>();
+
+        s.put("1", "1");
+        s.put("a", "a");
+        s.put("b", "b");
+        s.put("c", "c");
+        s.put("2", "2");
+        s.put("3", "3");
+
+        assertEquals(s,
+                Enumerable.init("123")
+                        .map(i -> Character.toString(i))
+                        .intercalate(asList("a", "b", "c")).toDictionary());
+    }
+
+    @Test
+    public void ToGroupedDictionary(){
+        HashMap<String, List<String>> s = new HashMap<>();
+
+        s.put("1", asList("1"));
+        s.put("a", asList("a","a"));
+        s.put("b", asList("b","b"));
+        s.put("c", asList("c","c"));
+        s.put("2", asList("2"));
+        s.put("3", asList("3"));
+
+        assertEquals(s,
+                Enumerable.init("123")
+                        .map(i -> Character.toString(i))
+                        .intercalate(asList("a", "b", "c"))
+                        .toGroupedDictionary());
     }
 }

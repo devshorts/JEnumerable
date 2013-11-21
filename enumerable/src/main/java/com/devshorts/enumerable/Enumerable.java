@@ -9,6 +9,8 @@ import com.devshorts.enumerable.iterators.*;
 import java.util.*;
 import java.util.function.*;
 
+import static java.util.Arrays.asList;
+
 class YieldedEnumeration<TSource> implements Iterable<TSource>  {
 
     private Supplier<Yieldable<TSource>> generator;
@@ -104,8 +106,8 @@ public class Enumerable<TSource> implements Iterable<TSource> {
         return enumerableWithIterator(TailsIterator::new);
     }
 
-    public Enumerable<List<TSource>> groupNeighbors(){
-        return enumerableWithIterator(GroupNeighborsIterator::new);
+    public Enumerable<List<TSource>> groupRuns(){
+        return enumerableWithIterator(GroupRunsIterator::new);
     }
 
     public Enumerable<Tuple<TSource, TSource>> pairwise(){
@@ -132,6 +134,14 @@ public class Enumerable<TSource> implements Iterable<TSource> {
 
     public Enumerable<TSource> except(Iterable<TSource> except){
         return enumerableWithIterator(source -> new ExceptIterator<>(source, except));
+    }
+
+    public Enumerable<TSource> intersperse(TSource element){
+        return enumerableWithIterator(source -> new IntercalateIterator<>(source, asList(element)));
+    }
+
+    public Enumerable<TSource> intercalate(List<TSource> elements){
+        return enumerableWithIterator(source -> new IntercalateIterator<>(source, elements));
     }
 
     public <TProjection> Enumerable<TSource> orderBy(Function<TSource, Comparable<TProjection>> projection){
@@ -211,13 +221,23 @@ public class Enumerable<TSource> implements Iterable<TSource> {
     }
 
     public List<TSource> toList(){
-        List<TSource> r = new LinkedList<>();
+        return Evaluators.toList(this);
+    }
 
-        for(TSource item : this){
-            r.add(item);
-        }
+    public HashMap<TSource, TSource> toDictionary(){
+        return Evaluators.toDictionary(this, i -> i);
+    }
 
-        return r;
+    public <TKey> HashMap<TKey, TSource> toDictionary(Function<TSource, TKey> projection){
+        return Evaluators.toDictionary(this, projection);
+    }
+
+    public <TKey> HashMap<TSource, List<TSource>> toGroupedDictionary(){
+        return Evaluators.toGroupedDictionary(this, i -> i);
+    }
+
+    public <TKey> HashMap<TKey,  List<TSource>> toGroupedDictionary(Function<TSource, TKey> projection){
+        return Evaluators.toGroupedDictionary(this, projection);
     }
 
     /**
