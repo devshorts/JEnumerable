@@ -71,3 +71,5 @@ Element# 	  | Reduce 		  | Map 	| Min 	| Order  | Distinct | Filter
 100000  |(3,10)|(6,9)|(1,14)|(9,92)|(7,11)|(2,4)
 1000000 | (11,20) | (16,73) | (13, 22) | (41, 1080)|(386, 75)|(15, 26)
 10000000 | (555,437) | (10253, 636) | (118, 184) | (165, 15122)|(1485, 4417)|(146, 266)
+
+Check here for [the benchmark code](enumerable/src/test/java/TestBenchmarks.java)
