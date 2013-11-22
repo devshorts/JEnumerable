@@ -1,5 +1,6 @@
 package com.devshorts.enumerable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.function.Function;
 
 public class Evaluators {
     public static <TSource> List<TSource> toList(Enumerable<TSource> enumerable){
-        List<TSource> r = new LinkedList<>();
+        List<TSource> r = new ArrayList<>();
 
         for(TSource item : enumerable){
             r.add(item);

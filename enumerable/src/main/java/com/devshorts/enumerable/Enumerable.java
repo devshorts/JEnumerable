@@ -156,15 +156,31 @@ public class Enumerable<TSource> implements Iterable<TSource> {
     }
 
     public <TProjection> Enumerable<TSource> orderBy(Function<TSource, Comparable<TProjection>> projection){
-        return orderBy(projection, (o1, o2) -> o1.compareTo((TProjection) o2));
+        DefaultComparer comparer = new DefaultComparer();
+
+        return orderBy(projection, comparer::compare);
+    }
+
+    public Enumerable<TSource> order(){
+        return orderBy(i-> (Comparable<TSource>)i, new DefaultComparer());
+    }
+
+    public Enumerable<TSource> orderDesc(){
+        return orderByDesc(i -> (Comparable<TSource>) i, new DefaultComparer());
     }
 
     public <TProjection> Enumerable<TSource> orderByDesc(Function<TSource, Comparable<TProjection>> projection){
-        return orderBy(projection, (o1, o2) -> o2.compareTo((TProjection) o1));
+        DefaultComparer comparer = new DefaultComparer();
+        return orderBy(projection, (o1, o2) -> comparer.compare(o2, o1));
+    }
+
+    public <TProjection> Enumerable<TSource> orderByDesc(Function<TSource, Comparable<TProjection>> projection,
+                                                         Comparator<TProjection> comparator){
+        return orderBy(projection, (o1, o2) -> comparator.compare(o2, o1));
     }
 
     public <TProjection> Enumerable<TSource> orderBy(Function<TSource, Comparable<TProjection>> projection,
-                                                     Comparator<Comparable<TProjection>> comparator){
+                                                     Comparator<TProjection> comparator){
         return enumerableWithIterator(source -> new OrderByIterator(source, projection, comparator));
     }
 

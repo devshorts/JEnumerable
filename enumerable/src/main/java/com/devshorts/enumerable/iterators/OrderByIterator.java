@@ -3,22 +3,19 @@ package com.devshorts.enumerable.iterators;
 import com.devshorts.enumerable.Enumerable;
 import com.devshorts.enumerable.data.ProjectionPair;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 
 public class OrderByIterator<TSource, TProjection> extends EnumerableIterator<TSource> {
 
 
-    private List<ProjectionPair> buffer;
-    private Function<TSource, Comparable<TProjection>> projection;
+    private ProjectionPair[] buffer;
+    private Function<TSource, TProjection> projection;
     private Comparator<TProjection> comparator;
     private Integer idx = 0;
 
     public OrderByIterator(Iterable<TSource> source,
-                           Function<TSource, Comparable<TProjection>> projection,
+                           Function<TSource, TProjection> projection,
                            Comparator<TProjection> comparator) {
         super(source);
 
@@ -30,12 +27,12 @@ public class OrderByIterator<TSource, TProjection> extends EnumerableIterator<TS
 
     @Override
     public boolean hasNext(){
-        return idx < buffer.size();
+        return idx < buffer.length;
     }
 
     @Override
     public TSource next(){
-        TSource value = (TSource)buffer.get(idx).value;
+        TSource value = (TSource)buffer[idx].value;
         idx++;
         return value;
     }
@@ -50,9 +47,10 @@ public class OrderByIterator<TSource, TProjection> extends EnumerableIterator<TS
                         return comparator.compare(o1.projection, o2.projection);
                     }
                 }))
-                .toList();
+                .toList()
+                .toArray(new ProjectionPair[0]);
 
-        Collections.sort(buffer);
+        Arrays.parallelSort(buffer);
     }
 
     private List<TSource> evaluateEnumerable(){
