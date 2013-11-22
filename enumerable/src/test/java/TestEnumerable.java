@@ -173,6 +173,15 @@ public class TestEnumerable {
 
     @Test
     public void BenchMark(){
+        List<Integer> jit = asList(1);
+
+        BenchReduce(jit);
+        BenchMap(jit);
+        BenchMin(jit);
+        BenchSorted(jit);
+
+        System.out.println("START");
+
         for(int x = 1; x < 100000000; x *= 10){
             List<Integer> data = new LinkedList<Integer>();
 
@@ -185,10 +194,7 @@ public class TestEnumerable {
             BenchReduce(data);
             BenchMap(data);
             BenchMin(data);
-
-            if(x < 1000000){
-                BenchSorted(data);
-            }
+            BenchSorted(data);
         }
     }
 
