@@ -304,6 +304,10 @@ public class Enumerable<TSource> implements Iterable<TSource> {
         return Evaluators.toGroupedDictionary(this, i -> i);
     }
 
+    public String foldToString(){
+        return unsafeIterEval(new FoldIterator<TSource, String>(this, (acc, elem) -> acc.toString() + elem.toString(), ""));
+    }
+
     public <TKey> HashMap<TKey,  List<TSource>> toGroupedDictionary(Function<TSource, TKey> projection){
         return Evaluators.toGroupedDictionary(this, projection);
     }

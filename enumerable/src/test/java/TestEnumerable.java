@@ -500,4 +500,12 @@ public class TestEnumerable {
                         .map(Box::new)
                         .maxBy(i -> i.elem));
     }
+
+    @Test
+    public void FoldToString(){
+        assertEquals("1,2,3",
+                Enumerable.init("123")
+                        .map(i -> Character.toString(i))
+                        .intersperse(",").foldToString());
+    }
 }
