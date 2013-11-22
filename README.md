@@ -8,7 +8,10 @@ Currently JEnumerable provides
 - Map
 - Filter
 - FlatMap
+- Order
 - OrderBy
+- OrderDesc
+- OrderByDesc
 - Take
 - TakeWhile
 - Skip
