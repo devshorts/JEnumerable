@@ -6,5 +6,14 @@ public class Box<T>{
     public Box(T elem){
         this.elem = elem;
     }
+
+    @Override
+    public boolean equals(Object o){
+        if(o == null || !(o instanceof Box)){
+            return false;
+        }
+
+        return elem.equals(((Box) o).elem);
+    }
 }
 

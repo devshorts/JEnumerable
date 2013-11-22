@@ -1,8 +1,5 @@
 import com.devshorts.enumerable.Enumerable;
-import com.devshorts.enumerable.data.Action;
-import com.devshorts.enumerable.data.Box;
-import com.devshorts.enumerable.data.Tuple;
-import com.devshorts.enumerable.data.Yieldable;
+import com.devshorts.enumerable.data.*;
 import org.junit.Test;
 
 import java.util.*;
@@ -456,8 +453,64 @@ public class TestEnumerable {
 
     @Test
     public void Range2(){
-        assertEquals(asList(0,5, 10),
+        assertEquals(asList(0, 5, 10),
                 Enumerable.range(0, 10, 5).toList());
 
+    }
+
+    @Test
+    public void Min(){
+        assertEquals((Integer)0,
+                    Enumerable.range(0, 10).min());
+    }
+
+    @Test
+    public void Min2(){
+        assertEquals((Integer)0,
+                Enumerable.range(0, 10).min(Integer::compareTo));
+    }
+
+    @Test
+    public void Max(){
+        assertEquals((Integer)10,
+                Enumerable.range(0, 10).max(Integer::compareTo));
+    }
+
+    @Test
+    public void Max2(){
+        assertEquals((Integer)10,
+                Enumerable.range(0, 10).max());
+    }
+
+    @Test
+    public void MinBy(){
+        assertEquals(new Box(0),
+                Enumerable.range(0, 10)
+                        .map(Box::new)
+                        .minBy(i -> i.elem, Integer::compareTo));
+    }
+
+    @Test
+    public void MaxBy(){
+        assertEquals(new Box(10),
+                Enumerable.range(0, 10)
+                        .map(Box::new)
+                        .maxBy(i -> i.elem, Integer::compareTo));
+    }
+
+    @Test
+    public void MinByDefaultComparer(){
+        assertEquals(new Box(0),
+                    Enumerable.range(0, 10)
+                              .map(Box::new)
+                              .minBy(i -> i.elem));
+    }
+
+    @Test
+    public void MaxByDefaultComparer(){
+        assertEquals(new Box(10),
+                Enumerable.range(0, 10)
+                        .map(Box::new)
+                        .maxBy(i -> i.elem));
     }
 }

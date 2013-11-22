@@ -1,9 +1,6 @@
 package com.devshorts.enumerable;
 
-import com.devshorts.enumerable.data.Action;
-import com.devshorts.enumerable.data.Box;
-import com.devshorts.enumerable.data.Tuple;
-import com.devshorts.enumerable.data.Yieldable;
+import com.devshorts.enumerable.data.*;
 import com.devshorts.enumerable.iterators.*;
 
 import java.util.*;
@@ -180,6 +177,47 @@ public class Enumerable<TSource> implements Iterable<TSource> {
         return unsafeIterEval(new NthIterator<>(this, 1));
     }
 
+    public <TProjection> TSource minBy(Function<TSource, TProjection> projector, Comparator<TProjection> comparer){
+        return unsafeIterEval(new MinMaxBy<>(this, projector, (a, b) -> comparer.compare(b,a) == -1));
+    }
+
+    public <TProjection> TSource maxBy(Function<TSource, TProjection> projector, Comparator<TProjection> comparer){
+        return unsafeIterEval(new MinMaxBy<>(this, projector, (a, b) -> comparer.compare(b, a) == 1));
+    }
+
+    public <TProjection> TSource minBy(Function<TSource, TProjection> projector){
+        return (TSource)minBy(projector, new DefaultComparer());
+    }
+
+    public <TProjection> TSource maxBy(Function<TSource, TProjection> projector){
+        return (TSource)maxBy(projector, new DefaultComparer());
+    }
+
+    private boolean lt(TSource current, TSource next, Comparator<TSource> comparer){
+        return comparer.compare(current, next) == -1;
+    }
+    private boolean gt(TSource current, TSource next, Comparator<TSource> comparer){
+        return comparer.compare(current, next) == 1;
+    }
+
+    public TSource min(){
+        return (TSource)min(new DefaultComparer());
+    }
+
+    public TSource max(){
+        return (TSource)max(new DefaultComparer());
+    }
+
+    public TSource min(Comparator<TSource> comparer){
+        return unsafeIterEval(new MinMaxBy<TSource, TSource>(this, i -> i,
+                (current, next) -> lt(next, current, comparer)));
+    }
+
+    public TSource max(Comparator<TSource> comparer){
+        return unsafeIterEval(new MinMaxBy<TSource, TSource>(this, i -> i,
+                (current, next) -> gt(next, current, comparer)));
+    }
+
     public TSource nth(int n){
         return unsafeIterEval(new NthIterator<>(this, n));
     }
@@ -270,7 +308,7 @@ public class Enumerable<TSource> implements Iterable<TSource> {
         return iterator.next();
     }
 
-    private TSource unsafeIterEval(Iterator<TSource> iterator) {
+    private static <TSource> TSource unsafeIterEval(Iterator<TSource> iterator) {
         iterator.hasNext();
 
         return iterator.next();

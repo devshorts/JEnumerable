@@ -36,6 +36,10 @@ Currently JEnumerable provides
 - ToDictionary
 - ToGroupedDictionary
 - Range
+- Min
+- Max
+- MinBy
+- MaxBy
 
 
 And infinite sequence generation with
