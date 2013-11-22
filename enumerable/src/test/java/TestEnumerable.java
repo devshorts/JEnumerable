@@ -179,6 +179,8 @@ public class TestEnumerable {
         BenchMap(jit);
         BenchMin(jit);
         BenchSorted(jit);
+        BenchDistinct(jit);
+        BenchFilter(jit, 0, 1);
 
         System.out.println("START");
 
@@ -195,9 +197,32 @@ public class TestEnumerable {
             BenchMap(data);
             BenchMin(data);
             BenchSorted(data);
+            BenchDistinct(data);
+            BenchFilter(data, 0, x);
         }
     }
 
+    private void BenchFilter(List<Integer> data, Integer start, Integer end) {
+        System.out.println("-- filter --");
+
+        long streamTime = TimeAndRun(() -> data.stream().filter(i -> i > start && i < end/2).toArray());
+
+        long enumTime = TimeAndRun(() -> Enumerable.init(data).filter(i -> i > start && i < end/2).toList());
+
+        System.out.println("Streams:  " + streamTime);
+        System.out.println("EnumTime: " + enumTime);
+    }
+
+    private void BenchDistinct(List<Integer> data) {
+        System.out.println("-- distinct --");
+
+        long streamTime = TimeAndRun(() -> data.stream().distinct().toArray());
+
+        long enumTime = TimeAndRun(() -> Enumerable.init(data).distinct().toList());
+
+        System.out.println("Streams:  " + streamTime);
+        System.out.println("EnumTime: " + enumTime);
+    }
 
 
     private void BenchSorted(List<Integer> data){

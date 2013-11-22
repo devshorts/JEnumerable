@@ -54,17 +54,17 @@ Check here for [examples](enumerable/src/test/java/TestEnumerable.java).
 
 Benchmarks
 ---
-Initial benchmarks are as follows.  The first element is the native streams function. The second element is JEnumerable's performance in milliseconds.  As you can see JEnumerable is reasonably comporable, sometimes slower, sometimes faster, but for reasonably sized lists the performance is equal. 
+Initial benchmarks are as follows.  The first element is the native streams function. The second element is JEnumerable's performance in milliseconds.  As you can see JEnumerable is reasonably comporable, sometimes slower, sometimes faster, but for reasonably sized lists the performance is equal.  This is just an example, since many functions in JEnumerable are not duplicated in Java 8 streams and so can't be comporably benchmarked.  
 
 
-Element# 	  | Reduce 		  | Map 	| Min 	| Order 
------------   | ------------- | ------ 	| ----- | ------
-1  | (0,0)|(0,0)|(0,0)|(0,0)
-10  | (0,0)|(0,0)|(0,0)|(0,0)
-100  |(0,0)|(0,0)|(0,0)|(0,0)
-1000  |(0,0)|(0,0)|(0,0)|(0,2)
-10000  |(1,2)|(1,2)|(0,3)|(2,14)
-100000  |(3,10)|(6,9)|(1,14)|(9,92)
-1000000 | (11,20) | (16,73) | (13, 22) | (41, 1080)
-10000000 | (555,437) | (10253, 636) | (118, 184) | (165, 15122)
 
+Element# 	  | Reduce 		  | Map 	| Min 	| Order  | Distinct | Filter
+-----------   | ------------- | ------ 	| ----- | ------ | -------- | -----
+1  | (0,0)|(0,0)|(0,0)|(0,0)|(0,0)|(0,0)
+10  | (0,0)|(0,0)|(0,0)|(0,0)|(0,0)|(0,0)
+100  |(0,0)|(0,0)|(0,0)|(0,0)|(0,0)|(0,0)
+1000  |(0,0)|(0,0)|(0,0)|(0,2)|(1,1)|(0,0)
+10000  |(1,2)|(1,2)|(0,3)|(2,14)|(3,3)|(1,2)
+100000  |(3,10)|(6,9)|(1,14)|(9,92)|(7,11)|(2,4)
+1000000 | (11,20) | (16,73) | (13, 22) | (41, 1080)|(386, 75)|(15, 26)
+10000000 | (555,437) | (10253, 636) | (118, 184) | (165, 15122)|(1485, 4417)|(146, 266)
