@@ -2,6 +2,7 @@ package com.devshorts.enumerable;
 
 import com.devshorts.enumerable.data.*;
 import com.devshorts.enumerable.iterators.*;
+import com.devshorts.enumerable.iterators.ListIterator;
 
 import java.util.*;
 import java.util.function.*;
@@ -29,6 +30,10 @@ public class Enumerable<TSource> implements Iterable<TSource> {
     //private Iterable source;
 
     private Function<Iterable<TSource>, Iterator<TSource>> iteratorGenerator;
+
+    public static <TSource> Enumerable<TSource> init(List<TSource> source){
+        return new Enumerable<>(_ig -> new ListIterator<>(source));
+    }
 
     public static <TSource> Enumerable<TSource> init(Iterable<TSource> source){
         return new Enumerable<>(_ig -> new EnumerableIterator<>(source));
@@ -329,15 +334,19 @@ public class Enumerable<TSource> implements Iterable<TSource> {
 
 
     private <TAcc> TAcc evalUnsafeMapIterator(Iterator<TAcc> iterator) {
-        iterator.hasNext();
+        if(iterator.hasNext()){
+            return  iterator.next();
+        }
 
-        return iterator.next();
+        return null;
     }
 
     private static <TSource> TSource unsafeIterEval(Iterator<TSource> iterator) {
-        iterator.hasNext();
+        if(iterator.hasNext()){
+            return  iterator.next();
+        }
 
-        return iterator.next();
+        return null;
     }
 }
 

@@ -17,6 +17,10 @@ public class NthIterator<TSource> extends EnumerableIterator<TSource> {
             return false;
         }
 
+        if(indexable()){
+            return n <= length() && n > 0 && length() > 0;
+        }
+
         while(n >= 1 && source.hasNext()){
             nth = source.next();
 
@@ -29,6 +33,11 @@ public class NthIterator<TSource> extends EnumerableIterator<TSource> {
     @Override
     public TSource next(){
         emitted = true;
+
+        if(indexable()){
+            return index(n - 1);
+        }
+
         return nth;
     }
 }

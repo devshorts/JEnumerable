@@ -123,6 +123,14 @@ public class TestEnumerable {
     }
 
     @Test
+    public void FirstMap(){
+        assertEquals((Integer)1,
+                Enumerable.init(asList("5", "4", "3", "2", "1"))
+                        .map(String::length)
+                        .first());
+    }
+
+    @Test
     public void Last(){
         assertEquals("1",
                 Enumerable.init(asList("5", "4", "3", "2", "1"))
