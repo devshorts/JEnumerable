@@ -6,6 +6,7 @@ This is an implementation of deferred lazy collections using Java. Inspired by F
 Currently JEnumerable provides
 
 - Map
+- Zip
 - Filter
 - FlatMap
 - Order
