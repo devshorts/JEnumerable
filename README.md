@@ -7,6 +7,7 @@ Currently JEnumerable provides
 
 - Map
 - Zip
+- Zip3
 - Filter
 - FlatMap
 - Order
