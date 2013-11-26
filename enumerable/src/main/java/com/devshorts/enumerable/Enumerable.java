@@ -189,6 +189,12 @@ public class Enumerable<TSource> implements Iterable<TSource> {
         return enumerableWithIterator(source -> new ZipIterator<>(source, zipWith, zipper));
     }
 
+    public <TSecond, TThird, TProjection> Enumerable<TProjection> zip3(Iterable<TSecond> zip2,
+                                                                        Iterable<TThird> zip3,
+                                                                        Zip3Func<TSource, TSecond, TThird, TProjection> zipper){
+        return enumerableWithIterator(zip1 -> new Zip3Iterator<>(zip1, zip2, zip3, zipper));
+    }
+
     public TSource first(){
         return unsafeIterEval(new NthIterator<>(this, 1));
     }
